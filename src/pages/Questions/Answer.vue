@@ -2,10 +2,7 @@
   <Page>
     <page-header>
       <template #buttons-left>
-        <page-header-btn-back
-          to="/questions"
-          label="Questions"
-        ></page-header-btn-back>
+        <page-header-btn-back label="Questions"></page-header-btn-back>
       </template>
       <template #title> Answer </template>
     </page-header>

@@ -1,9 +1,12 @@
 import { boot } from "quasar/wrappers";
 import { usePageStore } from "src/stores/page";
 
+let routerInstance = null;
+
 // "async" is optional;
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
 export default boot(({ router, store }) => {
+  routerInstance = router;
   const pageStore = usePageStore();
 
   router.afterEach((to, from) => {
@@ -13,8 +16,7 @@ export default boot(({ router, store }) => {
     const fromRootPath = `/${from.path.split("/")[1]}`;
     const toRootPath = `/${to.path.split("/")[1]}`;
     console.log("🚀 ~ router.afterEach ~ fromPath:", fromRootPath, toRootPath);
-    // console.log("🚀 ~ boot ~ store:", store);
-    // console.log(store.state.value?.page);
+    console.log(from.path, to.path);
 
     // 通过store 访问page仓库的方法
     pageStore.setPageTransition(fromRootPath === toRootPath);
@@ -24,8 +26,14 @@ export default boot(({ router, store }) => {
     const lastIndex = pageStore.navItems.findIndex(
       (item) => item.root === toRootPath
     );
-    // console.log(lastIndex);
     // 修改当前页面的to
     pageStore.navItems[lastIndex].to = to.path;
+
+    // 跳转相同页面，就跳转回到根目录下
+    if (from.path === to.path && to.path !== toRootPath) {
+      router.push(toRootPath);
+    }
   });
 });
+
+export { routerInstance };

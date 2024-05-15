@@ -2,7 +2,7 @@
   <Page>
     <page-header>
       <template #buttons-left>
-        <page-header-btn-back to="/home" label="home"></page-header-btn-back>
+        <page-header-btn-back label="home"></page-header-btn-back>
       </template>
       <template #title> Child </template>
     </page-header>

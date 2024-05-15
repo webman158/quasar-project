@@ -1,6 +1,10 @@
 <template>
   <div class="page absolute-top fit bg-white shadow-4 overflow-hidden">
-    <div class="page-nudger fit" :class="{ 'nudger-left': hasActiceChildPage }">
+    <div
+      class="page-nudger fit"
+      :class="{ 'nudger-left': hasActiceChildPage }"
+      v-touch-swipe.mouse.right="useGoBack"
+    >
       <slot></slot>
     </div>
 
@@ -26,6 +30,7 @@
 <script setup>
 import { ref, toRefs, onActivated, onDeactivated } from "vue";
 import { usePageStore } from "src/stores/page";
+import { useGoBack } from "src/composables";
 
 const hasActiceChildPage = ref(false);
 

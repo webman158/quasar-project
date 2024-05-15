@@ -1,7 +1,8 @@
 <template>
   <q-header bordered class="page-header absolute-top bg-white text-dark">
     <q-toolbar>
-      <q-toolbar-title class="text-center text-body1">
+      <slot name="buttons-left"></slot>
+      <q-toolbar-title class="text-center absolute-center text-body1 q-pl-none">
         <slot name="title"></slot>
       </q-toolbar-title>
     </q-toolbar>

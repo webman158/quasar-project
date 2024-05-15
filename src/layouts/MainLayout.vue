@@ -7,20 +7,34 @@
         class="text-grey-8"
         no-caps
       >
-        <q-route-tab label="Home" icon="las la-home" to="/" />
+        <q-route-tab
+          v-for="item in navItems"
+          :key="item.root"
+          :label="item.label"
+          :icon="item.icon"
+          :to="item.to"
+        />
       </q-tabs>
     </q-footer>
 
     <q-page-container>
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
+import { usePageStore } from "src/stores/page";
 
 defineOptions({
   name: "MainLayout",
 });
+
+const pageStore = usePageStore();
+const { navItems } = toRefs(pageStore);
 </script>

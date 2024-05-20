@@ -14,7 +14,7 @@
         leave-active-class="animated fadeOut slow"
       >
         <div v-if="image">
-          <q-img :src="image.url"></q-img>
+          <q-img :src="image.url" @click="dialog = true"></q-img>
           <div class="q-pa-lg">
             <div class="text-h5">{{ image.title }}</div>
             <div class="text-subtitle1 q-mt-sm">
@@ -27,6 +27,38 @@
         </div>
       </transition>
     </page-body>
+
+    <q-dialog
+      v-model="dialog"
+      maximized
+      persistent
+      transition-show="slide-up"
+      transition-hide="slide-down"
+      backdrop-filter="blur(4px)"
+    >
+      <q-card>
+        <!-- <q-card-section class="row items-center q-pb-none text-h6"></q-card-section> -->
+        <q-carousel
+          animated
+          swipeable
+          v-model="slide"
+          arrows
+          navigation
+          infinite
+        >
+          <q-carousel-slide
+            v-for="item in slideImgs"
+            :key="item.src"
+            :name="item.name"
+            :img-src="item.src"
+          />
+        </q-carousel>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Close" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </Page>
 </template>
 
@@ -52,4 +84,45 @@ onActivated(() => {
 onDeactivated(() => {
   image.value = null;
 });
+
+const dialog = ref(false);
+const slide = ref(1);
+const slideImgs = ref([
+  {
+    name: "1",
+    src: "/othersimgs/1.jpg",
+  },
+  {
+    name: "2",
+    src: "/othersimgs/2.jpg",
+  },
+  {
+    name: "3",
+    src: "/othersimgs/3.jpg",
+  },
+  {
+    name: "4",
+    src: "/othersimgs/4.jpg",
+  },
+  {
+    name: "5",
+    src: "/othersimgs/5.jpg",
+  },
+  {
+    name: "6",
+    src: "/othersimgs/6.jpg",
+  },
+  {
+    name: "7",
+    src: "/othersimgs/7.jpg",
+  },
+  {
+    name: "8",
+    src: "/othersimgs/8.jpg",
+  },
+  {
+    name: "9",
+    src: "/othersimgs/9.jpg",
+  },
+]);
 </script>
